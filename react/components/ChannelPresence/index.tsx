@@ -11,6 +11,7 @@ export interface Props {
   classSuffix?: string;
   mode?: string;
   position?: string;
+  overideNumber?: number;
 }
 
 export default function Presence({
@@ -20,6 +21,7 @@ export default function Presence({
   classSuffix,
   mode,
   position,
+  overideNumber,
 }: Props) {
   const [online, setOnline] = useState(0);
 
@@ -45,7 +47,7 @@ export default function Presence({
 
   return (
     <Widget
-      connected={online}
+      connected={overideNumber || online}
       classSuffix={classSuffix}
       mode={mode}
       position={position}
