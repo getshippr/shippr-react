@@ -1,5 +1,5 @@
 import useWebSocket from "react-use-websocket";
-import { useEffect, useState } from "react";
+import { ReactDOM, useEffect, useState } from "react";
 import cx from "classnames";
 import { kirby } from "../../client/hosts";
 import Widget from "./Widget";
@@ -12,6 +12,7 @@ export interface Props {
   mode?: string;
   position?: string;
   overideNumber?: number;
+  customLayout?: (users: any[]) => JSX.Element;
 }
 
 export default function Presence({
@@ -22,8 +23,9 @@ export default function Presence({
   mode,
   position,
   overideNumber,
+  customLayout,
 }: Props) {
-  const [online, setOnline] = useState(0);
+  const [users, setUsers] = useState<any[]>([]);
 
   const { sendJsonMessage } = useWebSocket(
     `wss:${kirby}?channelId=presence:${channelId}&apiKey=${apiKey}&appId=${appId}`,
@@ -32,8 +34,8 @@ export default function Presence({
       shouldReconnect: () => true,
       onMessage: (event) => {
         const data = event?.data ? JSON.parse(event?.data) : null;
-        if (data) {
-          setOnline(data.connected || 0);
+        if (data && data.users) {
+          setUsers(data.users || 0);
         }
       },
       onClose: (event) => {},
@@ -45,12 +47,14 @@ export default function Presence({
     sendJsonMessage({ type: "presence" });
   }, []);
 
-  return (
+  return !customLayout ? (
     <Widget
-      connected={overideNumber || online}
+      connected={overideNumber || users.length}
       classSuffix={classSuffix}
       mode={mode}
       position={position}
     />
+  ) : (
+    customLayout(users)
   );
 }

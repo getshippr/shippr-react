@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
 
@@ -7,6 +7,10 @@ interface ChannelPresenceProps {
    * Only for demo
    */
   overideNumber?: number;
+  /**
+   * Custom rendering
+   */
+  customLayout?: (users: any[]) => JSX.Element;
   /**
    * Stacked will stack the pictures
    */
@@ -25,6 +29,7 @@ export const ChannelPresence = ({
   mode = "simple",
   position,
   overideNumber = 1,
+  customLayout,
   ...props
 }: ChannelPresenceProps) => {
   return (
@@ -36,6 +41,7 @@ export const ChannelPresence = ({
         mode={mode}
         position={position}
         overideNumber={overideNumber}
+        customLayout={customLayout}
       />
     </div>
   );

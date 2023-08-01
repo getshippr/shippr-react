@@ -1,3 +1,4 @@
+import React, { ReactDOM } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ChannelPresence } from "./ChannelPresence";
@@ -43,5 +44,14 @@ export const VerticalStacked: Story = {
     mode: "stacked",
     overideNumber: 7,
     position: "vertical",
+  },
+};
+
+export const CustomLayout: Story = {
+  name: "Custom Layout",
+  args: {
+    customLayout: (data: any[]) => {
+      return <div className="text-indigo-500">{data.length} users</div>;
+    },
   },
 };
