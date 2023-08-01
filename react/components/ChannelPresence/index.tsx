@@ -14,6 +14,7 @@ export interface Props {
   overideNumber?: number;
   customLayout?: (users: any[]) => JSX.Element;
   onClick?: (users: any) => void;
+  stackLimit?: number;
 }
 
 export default function Presence({
@@ -26,6 +27,7 @@ export default function Presence({
   overideNumber,
   customLayout,
   onClick,
+  stackLimit,
 }: Props) {
   const [users, setUsers] = useState<any[]>([]);
 
@@ -57,6 +59,7 @@ export default function Presence({
       mode={mode}
       position={position}
       onClick={onClick}
+      stackLimit={stackLimit}
     />
   ) : (
     customLayout(users)

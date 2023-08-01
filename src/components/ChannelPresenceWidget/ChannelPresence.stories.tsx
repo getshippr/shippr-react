@@ -26,7 +26,7 @@ export const Simple: Story = {
   name: "Simple Indicator",
   args: {
     mode: "simple",
-    overideNumber: 7,
+    overideNumber: 5,
   },
 };
 
@@ -34,7 +34,7 @@ export const Stacked: Story = {
   name: "Stacked Indicator",
   args: {
     mode: "stacked",
-    overideNumber: 7,
+    overideNumber: 5,
   },
 };
 
@@ -42,7 +42,7 @@ export const VerticalStacked: Story = {
   name: "Stacked Vertical Indicator",
   args: {
     mode: "stacked",
-    overideNumber: 7,
+    overideNumber: 5,
     position: "vertical",
   },
 };
@@ -60,7 +60,7 @@ export const onClickEvent: Story = {
   name: "OnClick Event",
   args: {
     mode: "stacked",
-    overideNumber: 7,
+    overideNumber: 5,
     onClick: (userId: any) => {
       console.log("I am here");
     },

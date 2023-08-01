@@ -7,6 +7,10 @@ interface ChannelPresenceProps {
    * Only for demo
    */
   overideNumber?: number;
+  /**
+   * Maximum number of picture displayed
+   */
+  stackLimit?: number;
 
   /**
    * Custom rendering
@@ -36,6 +40,7 @@ export const ChannelPresence = ({
   overideNumber = 1,
   customLayout,
   onClick,
+  stackLimit,
   ...props
 }: ChannelPresenceProps) => {
   return (
@@ -49,6 +54,7 @@ export const ChannelPresence = ({
         overideNumber={overideNumber}
         customLayout={customLayout}
         onClick={onClick}
+        stackLimit={stackLimit}
       />
     </div>
   );

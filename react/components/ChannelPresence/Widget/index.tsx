@@ -8,9 +8,33 @@ export interface Props {
   onClick?: any;
   users: any[];
   overideNumber?: number;
+  stackLimit?: number;
 }
 
-const variants = ["marble", "beam", "pixel", "sunset", "ring", "bauhaus"];
+const variants = [
+  "marble",
+  "beam",
+  "pixel",
+  "sunset",
+  "ring",
+  "bauhaus",
+  "pixel",
+  "sunset",
+  "ring",
+  "bauhaus",
+  "pixel",
+  "sunset",
+  "ring",
+  "bauhaus",
+  "pixel",
+  "sunset",
+  "ring",
+  "bauhaus",
+  "pixel",
+  "sunset",
+  "ring",
+  "bauhaus",
+];
 
 export default function BasicPresence({
   classSuffix,
@@ -19,6 +43,7 @@ export default function BasicPresence({
   position,
   onClick,
   overideNumber,
+  stackLimit,
 }: Props) {
   const alignment = position === "vertical" ? "block" : "inline";
   const stackedClass = position === "vertical" ? "-mt-3" : "-mr-3";
@@ -27,35 +52,37 @@ export default function BasicPresence({
     : users;
   return mode === "stacked" ? (
     <div>
-      {members.map((p, i) => {
-        return (
-          <div
-            key={i}
-            className={`${mode === "stacked" ? alignment : "inline-flex"} ${
-              classSuffix
-                ? `${classSuffix}-presence-container`
-                : "shippr-presence-container"
-            }`}
-            onClick={() => {
-              return onClick(p.userId);
-            }}
-          >
-            <img
-              className={cx(
-                `${
-                  classSuffix
-                    ? `${classSuffix}-presence-element`
-                    : "shippr-presence-element"
-                } ${
-                  mode === "stacked" ? stackedClass : ""
-                } w-12 cursor-pointer shadow-md inline border-2  border-blue-300  rounded-full`
-              )}
-              src={`https://source.boringavatars.com/${variants[i]}`}
-            />
-          </div>
-        );
-      })}
-      {members.length > 4 && (
+      {members
+        .filter((p, i) => i < (stackLimit || 4))
+        .map((p, i) => {
+          return (
+            <div
+              key={i}
+              className={`${mode === "stacked" ? alignment : "inline-flex"} ${
+                classSuffix
+                  ? `${classSuffix}-presence-container`
+                  : "shippr-presence-container"
+              }`}
+              onClick={() => {
+                return onClick(p.userId);
+              }}
+            >
+              <img
+                className={cx(
+                  `${
+                    classSuffix
+                      ? `${classSuffix}-presence-element`
+                      : "shippr-presence-element"
+                  } ${
+                    mode === "stacked" ? stackedClass : ""
+                  } w-12 cursor-pointer shadow-md inline border-2  border-blue-300  rounded-full`
+                )}
+                src={`https://source.boringavatars.com/${variants[i]}`}
+              />
+            </div>
+          );
+        })}
+      {members.length > (stackLimit || 4) && (
         <div
           className={`${mode === "stacked" ? alignment : "inline-flex"} ${
             classSuffix
@@ -74,7 +101,9 @@ export default function BasicPresence({
               } cursor-pointer shadow-md inline-flex items-center justify-center  w-12  h-12  border-2 -mr-3 bg-blue-400 text-blue-100  border-blue-500 rounded-full`
             )}
           >
-            <span className="text-xs">+{members.length - 4}</span>
+            <span className="text-xs">
+              +{members.length - (stackLimit || 4)}
+            </span>
           </div>
         </div>
       )}
