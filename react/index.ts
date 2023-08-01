@@ -1,4 +1,4 @@
-import { init } from "./client"
-import ChannelPresence from "./components/ChannelPresence"
+import { init } from "./client";
+import ChannelPresence from "./components/ChannelPresence";
 
-export { init, ChannelPresence }
+export { init, ChannelPresence };
