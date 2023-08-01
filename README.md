@@ -8,9 +8,9 @@ To get started
 
 1. `yarn add @shippr/react`
 
-## Check out our storybook
+## Check out our components in our storybook
 
-here: [Link Text](https://64c9065f0cdd34cacb3c195a-vfzoqealxx.chromatic.com/)
+hosted on Chromatic: [storybook](https://64c9065f0cdd34cacb3c195a-vfzoqealxx.chromatic.com/)
 
 ## Contribution
 
