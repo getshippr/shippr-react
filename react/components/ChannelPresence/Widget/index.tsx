@@ -2,25 +2,32 @@ import "./global.css";
 import cx from "classnames";
 
 export interface Props {
-  connected: number;
   mode?: string;
   classSuffix?: string;
   position?: string;
+  onClick?: any;
+  users: any[];
+  overideNumber?: number;
 }
 
 const variants = ["marble", "beam", "pixel", "sunset", "ring", "bauhaus"];
 
 export default function BasicPresence({
-  connected,
   classSuffix,
   mode,
+  users,
   position,
+  onClick,
+  overideNumber,
 }: Props) {
   const alignment = position === "vertical" ? "block" : "inline";
   const stackedClass = position === "vertical" ? "-mt-3" : "-mr-3";
+  const members = overideNumber
+    ? Array.from(Array(overideNumber).keys())
+    : users;
   return mode === "stacked" ? (
     <div>
-      {Array.from(Array(connected > 4 ? 4 : connected).keys()).map((p, i) => {
+      {members.map((p, i) => {
         return (
           <div
             key={i}
@@ -29,6 +36,9 @@ export default function BasicPresence({
                 ? `${classSuffix}-presence-container`
                 : "shippr-presence-container"
             }`}
+            onClick={() => {
+              return onClick(p.userId);
+            }}
           >
             <img
               className={cx(
@@ -45,7 +55,7 @@ export default function BasicPresence({
           </div>
         );
       })}
-      {connected > 4 && (
+      {members.length > 4 && (
         <div
           className={`${mode === "stacked" ? alignment : "inline-flex"} ${
             classSuffix
@@ -64,7 +74,7 @@ export default function BasicPresence({
               } cursor-pointer shadow-md inline-flex items-center justify-center  w-12  h-12  border-2 -mr-3 bg-blue-400 text-blue-100  border-blue-500 rounded-full`
             )}
           >
-            <span className="text-xs">+{connected - 4}</span>
+            <span className="text-xs">+{members.length - 4}</span>
           </div>
         </div>
       )}
@@ -78,11 +88,14 @@ export default function BasicPresence({
             : "shippr-presence-container"
         } flex items-center`
       )}
+      onClick={onClick}
     >
       <div className="inline-block rounded-full p-1 text-green-400 bg-green-400/10">
         <div className={`h-1.5 w-1.5 rounded-full bg-current`}></div>
       </div>
-      <span className="text-xs ml-2 text-green-400">{connected} Online</span>
+      <span className="text-xs ml-2 text-green-400">
+        {members.length} Online
+      </span>
     </div>
   );
 }

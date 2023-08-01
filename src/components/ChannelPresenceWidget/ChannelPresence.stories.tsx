@@ -55,3 +55,14 @@ export const CustomLayout: Story = {
     },
   },
 };
+
+export const onClickEvent: Story = {
+  name: "OnClick Event",
+  args: {
+    mode: "stacked",
+    overideNumber: 7,
+    onClick: (userId: any) => {
+      console.log("I am here");
+    },
+  },
+};

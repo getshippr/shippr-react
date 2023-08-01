@@ -13,6 +13,7 @@ export interface Props {
   position?: string;
   overideNumber?: number;
   customLayout?: (users: any[]) => JSX.Element;
+  onClick?: (users: any) => void;
 }
 
 export default function Presence({
@@ -24,6 +25,7 @@ export default function Presence({
   position,
   overideNumber,
   customLayout,
+  onClick,
 }: Props) {
   const [users, setUsers] = useState<any[]>([]);
 
@@ -49,10 +51,12 @@ export default function Presence({
 
   return !customLayout ? (
     <Widget
-      connected={overideNumber || users.length}
+      users={users}
+      overideNumber={overideNumber}
       classSuffix={classSuffix}
       mode={mode}
       position={position}
+      onClick={onClick}
     />
   ) : (
     customLayout(users)

@@ -7,6 +7,11 @@ interface ChannelPresenceProps {
    * Only for demo
    */
   overideNumber?: number;
+
+  /**
+   * Custom rendering
+   */
+  onClick?: (userId: any) => void;
   /**
    * Custom rendering
    */
@@ -30,6 +35,7 @@ export const ChannelPresence = ({
   position,
   overideNumber = 1,
   customLayout,
+  onClick,
   ...props
 }: ChannelPresenceProps) => {
   return (
@@ -42,6 +48,7 @@ export const ChannelPresence = ({
         position={position}
         overideNumber={overideNumber}
         customLayout={customLayout}
+        onClick={onClick}
       />
     </div>
   );
