@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ChannelPresenceWidget } from "./ChannelPresenceWidget";
+import { ChannelPresence } from "./ChannelPresence";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 //@ts-ignore
 const meta: any = {
-  title: "ChannelPresenceWidget",
-  component: ChannelPresenceWidget,
+  title: "ChannelPresence",
+  component: ChannelPresence,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: "centered",
@@ -15,7 +15,7 @@ const meta: any = {
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof ChannelPresenceWidget>;
+} satisfies Meta<typeof ChannelPresence>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

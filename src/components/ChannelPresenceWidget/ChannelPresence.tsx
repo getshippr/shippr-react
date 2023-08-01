@@ -1,8 +1,8 @@
 import React from "react";
 import "./style.css";
-import ChannelPresence from "../../../react/components/ChannelPresence";
+import Presence from "../../../react/components/ChannelPresence";
 
-interface ChannelPresenceWidgetProps {
+interface ChannelPresenceProps {
   /**
    * Only for demo
    */
@@ -21,15 +21,15 @@ interface ChannelPresenceWidgetProps {
 /**
  * Primary UI component for user interaction
  */
-export const ChannelPresenceWidget = ({
+export const ChannelPresence = ({
   mode = "simple",
   position,
   overideNumber = 1,
   ...props
-}: ChannelPresenceWidgetProps) => {
+}: ChannelPresenceProps) => {
   return (
     <div>
-      <ChannelPresence
+      <Presence
         apiKey=""
         appId=""
         channelId="storybook-presence-indicator"
