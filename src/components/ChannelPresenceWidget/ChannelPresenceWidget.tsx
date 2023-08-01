@@ -13,9 +13,9 @@ interface ChannelPresenceWidgetProps {
   mode?: "stacked" | "simple";
 
   /**
-   * horizontal layout or lateral layout
+   * horizontal layout or vertical layout
    */
-  position?: "lateral" | "horizontal";
+  position?: "vertical" | "horizontal";
 }
 
 /**
