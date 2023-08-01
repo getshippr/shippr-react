@@ -38,7 +38,7 @@ export const Stacked: Story = {
 };
 
 export const VerticalStacked: Story = {
-  name: "Vertical Stacked Indicator",
+  name: "Stacked Vertical Indicator",
   args: {
     mode: "stacked",
     overideNumber: 7,
