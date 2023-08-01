@@ -10,7 +10,7 @@ To get started
 
 ## Check out our components in our storybook
 
-hosted on Chromatic: [storybook](https://64c9065f0cdd34cacb3c195a-vfzoqealxx.chromatic.com/)
+hosted on Chromatic: [storybook](https://main--64c9065f0cdd34cacb3c195a.chromatic.com)
 
 ## Contribution
 
