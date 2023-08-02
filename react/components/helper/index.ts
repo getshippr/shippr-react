@@ -1,64 +1,77 @@
-function calculateContrast(color1, color2) {
+function calculateContrast(color1: any, color2: any) {
   // Convert colors to RGB format
-  const rgbColor1 = isHexColor(color1) ? hexToRgb(color1) : rgbStringToRgb(color1)
-  const rgbColor2 = isHexColor(color2) ? hexToRgb(color2) : rgbStringToRgb(color2)
+  const rgbColor1 = isHexColor(color1)
+    ? hexToRgb(color1)
+    : rgbStringToRgb(color1);
+  const rgbColor2 = isHexColor(color2)
+    ? hexToRgb(color2)
+    : rgbStringToRgb(color2);
   if (!rgbColor1 || !rgbColor2) {
-    return
+    return;
   }
   // Calculate relative luminance for color 1
-  const luminance1 = calculateRelativeLuminance(rgbColor1.r, rgbColor1.g, rgbColor1.b)
+  const luminance1 = calculateRelativeLuminance(
+    rgbColor1.r,
+    rgbColor1.g,
+    rgbColor1.b
+  );
 
   // Calculate relative luminance for color 2
-  const luminance2 = calculateRelativeLuminance(rgbColor2.r, rgbColor2.g, rgbColor2.b)
-  if (!luminance1 || !luminance2) return
+  const luminance2 = calculateRelativeLuminance(
+    rgbColor2.r,
+    rgbColor2.g,
+    rgbColor2.b
+  );
+  if (!luminance1 || !luminance2) return;
   // Calculate contrast ratio
   const contrast =
-    (Math.max(luminance1, luminance2) + 0.05) / (Math.min(luminance1, luminance2) + 0.05)
-  return contrast
+    (Math.max(luminance1, luminance2) + 0.05) /
+    (Math.min(luminance1, luminance2) + 0.05);
+  return contrast;
 }
 
-function calculateRelativeLuminance(red, green, blue) {
-  const sRGB = [red / 255, green / 255, blue / 255]
+function calculateRelativeLuminance(red: any, green: any, blue: any) {
+  const sRGB = [red / 255, green / 255, blue / 255];
   if (!sRGB) {
-    return
+    return;
   }
   for (let i = 0; i < sRGB.length; i++) {
     //@ts-ignore
     if (sRGB[i] <= 0.03928) {
       //@ts-ignore
-      sRGB[i] = sRGB[i] / 12.92
+      sRGB[i] = sRGB[i] / 12.92;
     } else {
       //@ts-ignore
-      sRGB[i] = Math.pow((sRGB[i] + 0.055) / 1.055, 2.4)
+      sRGB[i] = Math.pow((sRGB[i] + 0.055) / 1.055, 2.4);
     }
   }
   //@ts-ignore
-  return 0.2126 * sRGB[0] + 0.7152 * sRGB[1] + 0.0722 * sRGB[2]
+  return 0.2126 * sRGB[0] + 0.7152 * sRGB[1] + 0.0722 * sRGB[2];
 }
 
-function isHexColor(color) {
-  return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(color)
+function isHexColor(color: any) {
+  return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(color);
 }
 
-function rgbStringToRgb(rgbString) {
+function rgbStringToRgb(rgbString: any) {
   if (!rgbString) {
-    return
+    return;
   }
-  const rgbValues = rgbString.match(/\d+/g)
+  const rgbValues = rgbString.match(/\d+/g);
 
   if (rgbValues.length !== 3 && rgbValues.length !== 4) {
-    debugger
+    debugger;
   }
 
   return {
     r: parseInt(rgbValues[0]),
     g: parseInt(rgbValues[1]),
     b: parseInt(rgbValues[2]),
-  }
+  };
 }
 
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+function hexToRgb(hex: any) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
         //@ts-ignore
@@ -68,37 +81,42 @@ function hexToRgb(hex) {
         //@ts-ignore
         b: parseInt(result[3], 16),
       }
-    : null
+    : null;
 }
 
-const getCursorColor = (event, container, customCursor, originColor) => {
+const getCursorColor = (
+  event: any,
+  container: any,
+  customCursor: any,
+  originColor: any
+) => {
   if (container && customCursor) {
     // Get the underlying element where the cursor is positioned
-    const element = document.elementFromPoint(event.clientX, event.clientY)
-    if (!element) return
+    const element = document.elementFromPoint(event.clientX, event.clientY);
+    if (!element) return;
     // Get the background color of the underlying element
-    const color = window.getComputedStyle(element).backgroundColor
-    const cursorColor = originColor
+    const color = window.getComputedStyle(element).backgroundColor;
+    const cursorColor = originColor;
 
     // Calculate contrast ratio between the cursor color (red) and the background
-    const contrast = calculateContrast(cursorColor, color)
+    const contrast = calculateContrast(cursorColor, color);
     // Threshold for contrast ratio (you can adjust this based on your preference)
-    const minContrastRatio = 9
+    const minContrastRatio = 9;
     // Change the custom cursor color based on contrast ratio
     if (contrast && contrast < minContrastRatio) {
-      return "rgb(255, 255, 255)"
+      return "rgb(255, 255, 255)";
     } else {
-      return originColor
+      return originColor;
     }
   }
-}
-function getRandomIntegerInRange(min, max) {
+};
+function getRandomIntegerInRange(min: any, max: any) {
   // Ensure that min and max are integers
-  min = Math.floor(min)
-  max = Math.floor(max)
+  min = Math.floor(min);
+  max = Math.floor(max);
 
   // Calculate the random integer within the range
-  return Math.floor(Math.random() * (max - min + 1)) + min
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const colorPalette = [
@@ -151,5 +169,5 @@ const colorPalette = [
   "rgb(117, 177, 169)", // Blue Green
   "rgb(209, 17, 73)", // Tomato Red
   "rgb(123, 162, 63)", // Asparagus Green
-]
-export { getCursorColor, colorPalette, getRandomIntegerInRange }
+];
+export { getCursorColor, colorPalette, getRandomIntegerInRange };
