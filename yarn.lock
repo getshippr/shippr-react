@@ -2118,6 +2118,7 @@ __metadata:
     "@storybook/react-webpack5": ^7.1.1
     "@storybook/testing-library": ^0.2.0
     "@types/react": ^18.2.18
+    "@types/uuid": ^9.0.2
     autoprefixer: ^10.4.14
     chromatic: ^6.20.0
     classnames: ^2.3.2
@@ -2131,6 +2132,7 @@ __metadata:
     storybook: ^7.1.1
     tailwindcss: ^3.3.3
     typescript: ^5.1.6
+    uuid: ^9.0.0
     vite: ^4.4.7
     ws: ^8.13.0
   peerDependencies:
@@ -3894,6 +3896,13 @@ __metadata:
   version: 2.0.7
   resolution: "@types/unist@npm:2.0.7"
   checksum: b97a219554e83431f19a93ff113306bf0512909292815e8f32964e47d041c505af1aaa2a381c23e137c4c0b962fad58d4ce9c5c3256642921a466be43c1fc715
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "@types/uuid@npm:9.0.2"
+  checksum: 1754bcf3444e1e3aeadd6e774fc328eb53bc956665e2e8fb6ec127aa8e1f43d9a224c3d22a9a6233dca8dd81a12dc7fed4d84b8876dd5ec82d40f574f7ff8b68
   languageName: node
   linkType: hard
 

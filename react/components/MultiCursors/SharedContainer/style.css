@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.my-custom-cursor {
+  position: absolute;
+  pointer-events: none; /* Ensure the custom cursor doesn't interfere with mouse events */
+  z-index: 9999;
+  cursor: none !important;
+}
