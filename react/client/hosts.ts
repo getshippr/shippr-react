@@ -1,3 +1,3 @@
-const kirby = "kirby.getshippr.com"
+const push = "push.getshippr.com";
 
-export { kirby }
+export { push };

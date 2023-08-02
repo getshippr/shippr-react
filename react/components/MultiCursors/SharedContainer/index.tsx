@@ -6,7 +6,7 @@ import {
   getCursorColor,
   getRandomIntegerInRange,
 } from "../../helper";
-import { kirby } from "../../../client/hosts";
+import { push } from "../../../client/hosts";
 import "./style.css";
 
 export interface Props {
@@ -43,7 +43,7 @@ export default function SharedContainer({
   }, []);
 
   const { sendJsonMessage } = useWebSocket(
-    `wss:${kirby}?channelId=${channel}&singlePropagation=${
+    `wss:${push}?channelId=${channel}&singlePropagation=${
       singlePropagation || ""
     }&apiKey=${apiKey}&appId=${appId}&userId=${currentUserId}&name=${
       name || ""
