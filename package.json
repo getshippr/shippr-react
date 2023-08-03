@@ -1,6 +1,6 @@
 {
   "name": "@shippr/react",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "packageManager": "yarn@3.6.0",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
