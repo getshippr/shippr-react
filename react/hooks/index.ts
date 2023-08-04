@@ -11,7 +11,7 @@ function useSharedState(initValue: any, channelId: string) {
     onMessage: (event) => {
       const data = event?.data ? JSON.parse(event?.data) : null;
       if (data) {
-        setData(data);
+        setData(data.value);
       }
     },
     onClose: (event) => {},
@@ -19,7 +19,7 @@ function useSharedState(initValue: any, channelId: string) {
   });
 
   const update = (newData: any) => {
-    sendJsonMessage(newData);
+    sendJsonMessage({ value: newData });
   };
 
   return [data, update];
