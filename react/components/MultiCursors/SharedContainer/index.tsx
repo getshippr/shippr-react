@@ -82,7 +82,9 @@ export default function SharedContainer({
           setConnectedToCanvas(update);
         }
       },
-      onClose: () => {},
+      onClose: (event) => {
+        console.error(event.reason);
+      },
     }
   );
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./global.css";
-import cx from "classnames";
 
 export interface Props {
   template?: any;

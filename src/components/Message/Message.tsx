@@ -34,8 +34,8 @@ export const MessageWidget = ({
   return (
     <div>
       <Message
-        apiKey=""
-        appId=""
+        apiKey="prod_DtpfVDhzvHFq0b51lc0E"
+        appId="YHAJ7JSF"
         channelId="storybook-message-example"
         customLayout={customLayout}
         template={template}

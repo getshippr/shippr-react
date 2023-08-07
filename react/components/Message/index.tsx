@@ -24,7 +24,9 @@ export default function Message({
 }: Props) {
   const [data, setData] = useState<any>(initialData);
 
-  const wsUrl = `wss://${push}?channelId=${channelId}&apiKey=${apiKey}&appId=${appId}`;
+  const wsUrl = `${
+    /localhost/.test(push) ? "ws" : "wss"
+  }://${push}?channelId=${channelId}&apiKey=${apiKey}&appId=${appId}`;
   useWebSocket(wsUrl, {
     share: true,
     shouldReconnect: () => true,
@@ -34,7 +36,9 @@ export default function Message({
         setData(data);
       }
     },
-    onClose: (event) => {},
+    onClose: (event) => {
+      console.error(event.reason);
+    },
     onError: (event) => {},
   });
 

@@ -30,22 +30,23 @@ export default function Presence({
   stackLimit,
 }: Props) {
   const [users, setUsers] = useState<any[]>([]);
-
-  const { sendJsonMessage } = useWebSocket(
-    `wss:${push}?channelId=presence:${channelId}&apiKey=${apiKey}&appId=${appId}`,
-    {
-      share: true,
-      shouldReconnect: () => true,
-      onMessage: (event) => {
-        const data = event?.data ? JSON.parse(event?.data) : null;
-        if (data && data.users) {
-          setUsers(data.users || 0);
-        }
-      },
-      onClose: (event) => {},
-      onError: (event) => {},
-    }
-  );
+  const url = `${
+    /localhost/.test(push) ? "ws" : "wss"
+  }://${push}?channelId=presence:${channelId}&apiKey=${apiKey}&appId=${appId}`;
+  const { sendJsonMessage } = useWebSocket(url, {
+    share: true,
+    shouldReconnect: () => true,
+    onMessage: (event) => {
+      const data = event?.data ? JSON.parse(event?.data) : null;
+      if (data && data.users) {
+        setUsers(data.users || 0);
+      }
+    },
+    onClose: (event) => {
+      console.error(event.reason);
+    },
+    onError: (event) => {},
+  });
 
   useEffect(() => {
     sendJsonMessage({ type: "presence" });

@@ -46,8 +46,8 @@ export const ChannelPresence = ({
   return (
     <div>
       <Presence
-        apiKey=""
-        appId=""
+        apiKey="prod_DtpfVazdDhzvHFq0b51lc0E"
+        appId="YHAJ7JSF"
         channelId="storybook-presence-indicator"
         mode={mode}
         position={position}

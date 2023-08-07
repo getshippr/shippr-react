@@ -23,9 +23,9 @@ export const MultiCursors = ({
   return (
     <div>
       <MultiCursorsWidget
-        apiKey=""
+        apiKey="prod_DtpfVDhzvHFq0b51lc0E"
+        appId="YHAJ7JSF"
         name={name}
-        appId=""
         channel="multi-cursor-storybook"
         activated={true}
         customLayout={customLayout}
