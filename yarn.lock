@@ -2122,10 +2122,12 @@ __metadata:
     autoprefixer: ^10.4.14
     chromatic: ^6.20.0
     classnames: ^2.3.2
+    eventemitter2: ^6.4.9
     postcss: ^8.4.27
     react: ^18.2.0
     react-dom: ^18.2.0
     react-use-websocket: ^4.3.1
+    reconnecting-websocket: ^4.4.0
     rollup: ^3.27.0
     rollup-plugin-postcss: ^4.0.2
     rollup-plugin-typescript2: ^0.35.0
@@ -6249,6 +6251,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter2@npm:^6.4.9":
+  version: 6.4.9
+  resolution: "eventemitter2@npm:6.4.9"
+  checksum: be59577c1e1c35509c7ba0e2624335c35bbcfd9485b8a977384c6cc6759341ea1a98d3cb9dbaa5cea4fff9b687e504504e3f9c2cc1674cf3bd8a43a7c74ea3eb
+  languageName: node
+  linkType: hard
+
 "eventemitter3@npm:^4.0.4":
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
@@ -10248,6 +10257,13 @@ __metadata:
     source-map: ~0.6.1
     tslib: ^2.0.1
   checksum: b1340ab0a3a8e4bf206c6c7d54168f7019ed4138a53bc746df230c01f1b6672ce9d25dceb34896b6683622d3eede4e1f18b7d0b672f5aab54ba7762de949e317
+  languageName: node
+  linkType: hard
+
+"reconnecting-websocket@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "reconnecting-websocket@npm:4.4.0"
+  checksum: 7ee379ff3a4bddf9d47fb6f3fb2d9450865f0ed2d91f003e6d0c12c901e8c135379a143a933e7bed7bc33133f04bdaed534bd68591c95730044dc69d32da4866
   languageName: node
   linkType: hard
 

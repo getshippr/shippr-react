@@ -1,6 +1,7 @@
 import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
+import { init } from "../../../react";
 
 interface ChannelPresenceProps {
   /**
@@ -46,8 +47,8 @@ export const ChannelPresence = ({
   return (
     <div>
       <Presence
-        apiKey="prod_DtpfVazdDhzvHFq0b51lc0E"
-        appId="40CAF8OS"
+        apiKey="prod_boJTvKBJ80dyBUCB5XuP"
+        appId="VMQJK054"
         channelId="storybook-presence-indicator"
         mode={mode}
         position={position}
