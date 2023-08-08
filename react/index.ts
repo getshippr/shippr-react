@@ -5,3 +5,4 @@ import MultiCursors from "./components/MultiCursors";
 import { useSharedState } from "./hooks";
 
 export { init, ChannelPresence, Message, MultiCursors, useSharedState };
+export default init;
