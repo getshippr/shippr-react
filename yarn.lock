@@ -2097,15 +2097,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shippr/client@npm:^0.1.5":
-  version: 0.1.5
-  resolution: "@shippr/client@npm:0.1.5"
+"@shippr/client@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@shippr/client@npm:0.1.7"
   dependencies:
     "@types/uuid": ^9.0.2
     reconnecting-websocket: ^4.4.0
     uuid: ^9.0.0
     ws: ^8.13.0
-  checksum: 9f278d60dee641468c4e7bffd636ce721fc86e434faafe88f693890efeb03cd1b5c8460ceb64018fc409695a1193068e0b1685ed316a5237be68d23a16f64795
+  checksum: d55ba03390ae047c628c069a74e1d765949ee58e93b7c0f9bcaa0df0cc32c03f8f3b48ccda9515a05e2add3f6b4435c0b2113fa016ce4323697fc2b18522d6c4
   languageName: node
   linkType: hard
 
@@ -2118,7 +2118,7 @@ __metadata:
     "@babel/preset-typescript": ^7.22.5
     "@rollup/plugin-commonjs": ^25.0.3
     "@rollup/plugin-node-resolve": ^15.1.0
-    "@shippr/client": ^0.1.5
+    "@shippr/client": ^0.1.7
     "@storybook/addon-essentials": ^7.1.1
     "@storybook/addon-interactions": ^7.1.1
     "@storybook/addon-links": ^7.1.1
