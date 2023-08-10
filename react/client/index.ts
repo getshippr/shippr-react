@@ -6,6 +6,7 @@ const init = (appId: string, apiKey: string) => {
   return {
     useSharedState: (initValue: any, channelId: string) => {
       const [data, setData] = useState(initValue);
+      debugger;
       const watcher = client.subscribe(channelId);
       watcher.on((data, err) => {
         if (!err) {
