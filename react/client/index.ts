@@ -29,7 +29,10 @@ const init = (appId: string, apiKey: string) => {
 
       return [data, update];
     },
-    usePresence: (initValue: string[], channelId: string) => {
+    usePresence: (
+      initValue: string[],
+      channelId: string
+    ): [string[], Function] => {
       const [data, setData] = useState<string[]>(initValue || []);
       useEffect(() => {
         const fetch = async () => {
