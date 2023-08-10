@@ -1,7 +1,8 @@
 import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
-import shippr from "../../../react";
+import init from "../../../react";
+const { useSharedState } = init("40CAF8OS", "prod_Mi88YInp22c1lPN8tyvb");
 
 interface ChannelPresenceProps {
   /**
@@ -44,24 +45,7 @@ export const ChannelPresence = ({
   stackLimit,
   ...props
 }: ChannelPresenceProps) => {
-  const test = shippr("VMQJK054", "prod_boJTvKBJ80dyBUCB5XuP");
+  const [test, setTest] = useSharedState([], "presence:test");
   debugger;
-  test.subscribe("storybook-presence-indicator").on((data: any, err: any) => {
-    debugger;
-  });
-  return (
-    <div>
-      <Presence
-        apiKey="prod_boJTvKBJ80dyBUCB5XuP"
-        appId="VMQJK054"
-        channelId="storybook-presence-indicator"
-        mode={mode}
-        position={position}
-        overideNumber={overideNumber}
-        customLayout={customLayout}
-        onClick={onClick}
-        stackLimit={stackLimit}
-      />
-    </div>
-  );
+  return <div>{test.length}</div>;
 };
