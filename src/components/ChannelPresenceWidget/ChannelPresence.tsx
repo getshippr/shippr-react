@@ -1,7 +1,7 @@
 import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
-import { init } from "../../../react";
+import shippr from "../../../react";
 
 interface ChannelPresenceProps {
   /**
@@ -44,6 +44,11 @@ export const ChannelPresence = ({
   stackLimit,
   ...props
 }: ChannelPresenceProps) => {
+  const test = shippr("VMQJK054", "prod_boJTvKBJ80dyBUCB5XuP");
+  debugger;
+  test.subscribe("storybook-presence-indicator").on((data: any, err: any) => {
+    debugger;
+  });
   return (
     <div>
       <Presence

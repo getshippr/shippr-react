@@ -2097,6 +2097,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shippr/client@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@shippr/client@npm:0.1.5"
+  dependencies:
+    "@types/uuid": ^9.0.2
+    reconnecting-websocket: ^4.4.0
+    uuid: ^9.0.0
+    ws: ^8.13.0
+  checksum: 9f278d60dee641468c4e7bffd636ce721fc86e434faafe88f693890efeb03cd1b5c8460ceb64018fc409695a1193068e0b1685ed316a5237be68d23a16f64795
+  languageName: node
+  linkType: hard
+
 "@shippr/react@workspace:.":
   version: 0.0.0-use.local
   resolution: "@shippr/react@workspace:."
@@ -2106,6 +2118,7 @@ __metadata:
     "@babel/preset-typescript": ^7.22.5
     "@rollup/plugin-commonjs": ^25.0.3
     "@rollup/plugin-node-resolve": ^15.1.0
+    "@shippr/client": ^0.1.5
     "@storybook/addon-essentials": ^7.1.1
     "@storybook/addon-interactions": ^7.1.1
     "@storybook/addon-links": ^7.1.1
@@ -2122,12 +2135,10 @@ __metadata:
     autoprefixer: ^10.4.14
     chromatic: ^6.20.0
     classnames: ^2.3.2
-    eventemitter2: ^6.4.9
     postcss: ^8.4.27
     react: ^18.2.0
     react-dom: ^18.2.0
     react-use-websocket: ^4.3.1
-    reconnecting-websocket: ^4.4.0
     rollup: ^3.27.0
     rollup-plugin-postcss: ^4.0.2
     rollup-plugin-typescript2: ^0.35.0
@@ -6248,13 +6259,6 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: 571aeb3dbe0f2bbd4e4fadbdb44f325fc75335cd5f6f6b6a091e6a06a9f25ed5392f0863c5442acb0646787446e816f13cbfc6edce5b07658541dff573cab1ff
-  languageName: node
-  linkType: hard
-
-"eventemitter2@npm:^6.4.9":
-  version: 6.4.9
-  resolution: "eventemitter2@npm:6.4.9"
-  checksum: be59577c1e1c35509c7ba0e2624335c35bbcfd9485b8a977384c6cc6759341ea1a98d3cb9dbaa5cea4fff9b687e504504e3f9c2cc1674cf3bd8a43a7c74ea3eb
   languageName: node
   linkType: hard
 
