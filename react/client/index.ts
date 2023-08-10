@@ -30,13 +30,14 @@ const init = (appId: string, apiKey: string) => {
       return [data, update];
     },
     usePresence: (initValue: any, channelId: string) => {
-      const [data, setData] = useState<string[]>(initValue);
+      const [data, setData] = useState<string[]>(initValue || []);
       useEffect(() => {
         const fetch = async () => {
           const watcher = await client.subscribe(channelId);
           watcher.on((data, err) => {
             if (!err) {
-              setData(data ? data.users || [] : []);
+              const update: string[] = data ? data.users || [] : [];
+              setData(update);
             } else {
               console.log(err);
             }
@@ -50,7 +51,7 @@ const init = (appId: string, apiKey: string) => {
         client.publish(channelId, newData);
       };
 
-      return [data, update];
+      return [data || [], update];
     },
   };
 };
