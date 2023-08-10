@@ -2,7 +2,6 @@ import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
 import init from "../../../react";
-const { useSharedState } = init("40CAF8OS", "prod_Mi88YInp22c1lPN8tyvb");
 
 interface ChannelPresenceProps {
   /**
@@ -45,6 +44,7 @@ export const ChannelPresence = ({
   stackLimit,
   ...props
 }: ChannelPresenceProps) => {
+  const { useSharedState } = init("40CAF8OS", "prod_Mi88YInp22c1lPN8tyvb");
   const [test, setTest] = useSharedState([], "presence:test");
   debugger;
   return <div>{test.length}</div>;
