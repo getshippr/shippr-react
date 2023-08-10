@@ -3,7 +3,7 @@ const push =
     ? "localhost:8080"
     : "push.getshippr.com";
 
-const pushHttp ="http://push.getshippr.com
+const pushHttp = "http://push.getshippr.com";
 
 const pushWs =
   process.env.NODE_ENV === "development"
