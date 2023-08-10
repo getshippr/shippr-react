@@ -1,6 +1,5 @@
 import useWebSocket from "react-use-websocket";
-import { ReactDOM, useEffect, useState } from "react";
-import cx from "classnames";
+import { useEffect, useState } from "react";
 import { push } from "../../client/hosts";
 import Widget from "./Widget";
 
@@ -14,6 +13,8 @@ export interface Props {
   overideNumber?: number;
   customLayout?: (users: any[]) => JSX.Element;
   onClick?: (users: any) => void;
+  onUserAdded?: () => any;
+  onUserRemoved?: () => any;
   stackLimit?: number;
 }
 
@@ -25,6 +26,8 @@ export default function Presence({
   mode,
   position,
   overideNumber,
+  onUserAdded,
+  onUserRemoved,
   customLayout,
   onClick,
   stackLimit,
@@ -39,6 +42,11 @@ export default function Presence({
     onMessage: (event) => {
       const data = event?.data ? JSON.parse(event?.data) : null;
       if (data && data.users) {
+        if (data.users.length > users.length && onUserAdded) {
+          onUserAdded();
+        } else if (data.users.length < users.length && onUserRemoved) {
+          onUserRemoved();
+        }
         setUsers(data.users || 0);
       }
     },
