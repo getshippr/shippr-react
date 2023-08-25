@@ -1,8 +1,6 @@
-import React, { ReactDOM } from "react";
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
-import shippr, { init } from "../../../react";
-const { useSharedState } = init("40CAF8OS", "prod_Mi88YInp22c1lPN8tyvb");
+import { UserPresence } from "../../../react/components/helper";
 
 interface ChannelPresenceProps {
   /**
@@ -21,7 +19,12 @@ interface ChannelPresenceProps {
   /**
    * Custom rendering
    */
-  customLayout?: (users: any[]) => JSX.Element;
+  customLayout?: (users: UserPresence[]) => JSX.Element;
+
+  /**
+   * Custom tooltip
+   */
+  customTooltip?: (users: UserPresence) => JSX.Element;
   /**
    * Stacked will stack the pictures
    */
@@ -31,6 +34,16 @@ interface ChannelPresenceProps {
    * horizontal layout or vertical layout
    */
   position?: "vertical" | "horizontal";
+
+  /**
+   * show tooltip
+   */
+  showTooltip?: boolean;
+
+  /**
+   * show tooltip
+   */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 /**
@@ -39,17 +52,20 @@ interface ChannelPresenceProps {
 export const ChannelPresence = ({
   mode = "simple",
   position,
-  overideNumber = 1,
+  overideNumber,
   customLayout,
   onClick,
   stackLimit,
+  showTooltip,
+  tooltipPosition,
+  customTooltip,
   ...props
 }: ChannelPresenceProps) => {
   return (
     <div>
       <Presence
-        apiKey="prod_Mi88YInp22c1lPN8tyvb"
-        appId="40CAF8OS"
+        apiKey="prod_boJTvKBJ80dyBUCB5XuP"
+        appId="VMQJK054"
         channelId="storybook-presence-indicator"
         mode={mode}
         position={position}
@@ -57,6 +73,10 @@ export const ChannelPresence = ({
         customLayout={customLayout}
         onClick={onClick}
         stackLimit={stackLimit}
+        userId={"toto"}
+        showTooltip={showTooltip}
+        tooltipPosition={tooltipPosition}
+        customTooltip={customTooltip}
       />
     </div>
   );

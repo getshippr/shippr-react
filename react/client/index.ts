@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import shippr from "@shippr/client";
+import { SuperSocketOptions } from "@shippr/supersocket/lib/esm/types/supersocket";
+import { UserPresence } from "../components/helper";
 
-const init = (appId: string, apiKey: string) => {
-  const client = shippr(appId, apiKey);
+const init = (
+  appId: string,
+  apiKey: string,
+  options?: { wsOptions?: SuperSocketOptions; userId?: string }
+) => {
+  const client = shippr(appId, apiKey, options);
   return {
     useSharedState: (initValue: any, channelId: string) => {
       const [data, setData] = useState(initValue);
       useEffect(() => {
+        let watcher: {
+          on: (cb: any) => void;
+          getSocket: () => any;
+          disconnect: () => void;
+        } | null = null;
         const fetch = async () => {
-          const watcher = await client.subscribe(channelId);
-          watcher.on((data, err) => {
+          watcher = await client.subscribe(channelId);
+          watcher.on((data: any, err: any) => {
             if (!err) {
               setData(data);
             } else {
               console.log(err);
             }
           });
-          if (/presence:/.test(channelId)) {
-            client.publish(channelId, { type: "presence" });
-          }
         };
         fetch();
+        return () => {
+          watcher?.disconnect();
+        };
       }, []);
 
       const update = (newData: any) => {
@@ -30,31 +41,39 @@ const init = (appId: string, apiKey: string) => {
       return [data, update];
     },
     usePresence: (
-      initValue: string[],
+      initValue: UserPresence[],
       channelId: string
-    ): [string[], Function] => {
-      const [data, setData] = useState<string[]>(initValue || []);
+    ): [UserPresence[], Function] => {
+      const [users, setUsers] = useState<UserPresence[]>(initValue || []);
+
       useEffect(() => {
+        let watcher: {
+          on: (cb: any) => void;
+          getSocket: () => any;
+          disconnect: () => void;
+        } | null = null;
         const fetch = async () => {
-          const watcher = await client.subscribe(channelId);
-          watcher.on((data, err) => {
+          watcher = await client.subscribe(channelId);
+          watcher.on((newData: any, err: any) => {
             if (!err) {
-              const update: string[] = data ? data.users || [] : [];
-              setData(update);
+              const update: UserPresence[] = newData ? newData.users || [] : [];
+              setUsers(update);
             } else {
               console.log(err);
             }
           });
-          client.publish(channelId, { type: "presence" });
         };
         fetch();
+        return () => {
+          watcher?.disconnect();
+        };
       }, []);
 
       const update = (newData: any) => {
         client.publish(channelId, newData);
       };
 
-      return [data || [], update];
+      return [users || [], update];
     },
   };
 };
