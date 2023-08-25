@@ -2,6 +2,7 @@ import React, { ReactDOM } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ChannelPresence } from "./ChannelPresence";
+import { UserPresence } from "../../../react/components/helper";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 //@ts-ignore
@@ -63,6 +64,32 @@ export const onClickEvent: Story = {
     overideNumber: 5,
     onClick: (userId: any) => {
       console.log("I am here");
+    },
+  },
+};
+
+export const SimpleTooltip: Story = {
+  name: "With Simple Tooltip",
+  args: {
+    mode: "stacked",
+    showTooltip: true,
+    tooltipPosition: "left",
+  },
+};
+
+export const CustomTooltip: Story = {
+  name: "With Custom Tooltip",
+  args: {
+    mode: "stacked",
+    showTooltip: true,
+    tooltipPosition: "top",
+    customTooltip: (user: UserPresence) => {
+      return (
+        <div className="w-full flex flex-wrap bg-blue-300 p-2 rounded">
+          <span className="w-full inline-block text-xs text-gray-800">foo</span>
+          <span className="w-full inline-block text-xs">custom tooltip</span>
+        </div>
+      );
     },
   },
 };

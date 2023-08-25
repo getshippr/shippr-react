@@ -170,4 +170,12 @@ const colorPalette = [
   "rgb(209, 17, 73)", // Tomato Red
   "rgb(123, 162, 63)", // Asparagus Green
 ];
+
+export type UserPresence = {
+  userId: string;
+  state: "connected" | "disconnected";
+  updatedAt: number;
+  connectionCount: number;
+};
+
 export { getCursorColor, colorPalette, getRandomIntegerInRange };
