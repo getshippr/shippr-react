@@ -58,7 +58,12 @@ export interface Props {
    * if you just need to replace the image URL
    * returns image URL
    */
-  replaceImg?: (user: UserPresence) => string;
+  setUserImg?: (user: UserPresence) => string;
+  /**
+   * if you just need to replace the user name
+   * returns string
+   */
+  setUserName?: (user: UserPresence) => string;
   /**
    * Build your own user layout
    * example:
@@ -107,7 +112,8 @@ export default function Presence({
   stackLimit,
   showTooltip,
   tooltipPosition,
-  replaceImg,
+  setUserImg,
+  setUserName,
   customTooltip,
   tooltipTrigger,
 }: Props) {
@@ -144,7 +150,8 @@ export default function Presence({
       tooltipPosition={tooltipPosition}
       tooltipTrigger={tooltipTrigger}
       customUserLayout={customUserLayout}
-      replaceImg={replaceImg}
+      setUserImg={setUserImg}
+      setUserName={setUserName}
     />
   ) : (
     customLayout(

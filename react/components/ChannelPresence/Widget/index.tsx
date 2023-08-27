@@ -17,7 +17,8 @@ export interface Props {
   tooltipTrigger?: "click" | "hover";
   customTooltip?: (user: UserPresence) => JSX.Element;
   customUserLayout?: (user: UserPresence) => JSX.Element;
-  replaceImg?: (user: UserPresence) => string;
+  setUserImg?: (user: UserPresence) => string;
+  setUserName?: (user: UserPresence) => string;
 }
 
 const variants = [
@@ -47,6 +48,7 @@ const variants = [
 
 const Tooltip = ({
   user,
+  setUserName,
   children,
   showTooltip,
   tooltipPosition = "top",
@@ -56,6 +58,7 @@ const Tooltip = ({
   position,
 }: {
   user: UserPresence;
+  setUserName?: (user: UserPresence) => string;
   children: JSX.Element;
   tooltipTrigger?: string;
   showTooltip?: boolean;
@@ -129,7 +132,9 @@ const Tooltip = ({
               <div className="w-full flex flex-wrap bg-gray-600 p-2 rounded ">
                 <div className="w-full flex flex-wrap ">
                   <span className="z-50 w-40 truncate inline-block text-xs text-gray-300">
-                    {user.userId}
+                    {setUserName && setUserName(user)
+                      ? setUserName(user)
+                      : user.userId}
                   </span>
                   <span className="w-full inline-block text-xs">
                     Viewed {user.connectionCount} times
@@ -170,7 +175,8 @@ export default function BasicPresence({
   customTooltip,
   tooltipTrigger,
   customUserLayout,
-  replaceImg,
+  setUserImg,
+  setUserName,
 }: Props) {
   const alignment = position === "vertical" ? "block" : "inline-flex flex-wrap";
   const stackedClass = position === "vertical" ? "my-0.5" : "mx-1";
@@ -205,6 +211,7 @@ export default function BasicPresence({
               tooltipPosition={tooltipPosition}
               mode={mode}
               position={position}
+              setUserName={setUserName}
             >
               {customUserLayout(p)}
             </Tooltip>
@@ -228,6 +235,7 @@ export default function BasicPresence({
                 tooltipPosition={tooltipPosition}
                 mode={mode}
                 position={position}
+                setUserName={setUserName}
               >
                 <>
                   {" "}
@@ -245,8 +253,8 @@ export default function BasicPresence({
                     )}
                     style={{ borderWidth: "3px" }}
                     src={
-                      replaceImg
-                        ? replaceImg(p)
+                      setUserImg && setUserImg(p)
+                        ? setUserImg(p)
                         : `https://source.boringavatars.com/${variants[i]}`
                     }
                   />
