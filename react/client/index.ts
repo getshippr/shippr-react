@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import shippr, { ShipprClient } from "@shippr/client";
 import { SuperSocketOptions } from "@shippr/supersocket/lib/esm/types/supersocket";
 import { UserPresence } from "../components/helper";
+import { ShipprHooks } from "../types";
 
 const init = (
   appId: string,

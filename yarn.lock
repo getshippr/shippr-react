@@ -2498,6 +2498,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     rollup: ^3.27.0
+    rollup-plugin-dts: ^6.0.0
     rollup-plugin-postcss: ^4.0.2
     rollup-plugin-typescript2: ^0.35.0
     storybook: ^7.1.1
