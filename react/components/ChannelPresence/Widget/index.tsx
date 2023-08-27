@@ -224,7 +224,7 @@ export default function BasicPresence({
                   : "shippr-presence-container"
               }`}
               onClick={() => {
-                return onClick(p.userId);
+                return onClick ? onClick(p.userId) : null;
               }}
             >
               <Tooltip
