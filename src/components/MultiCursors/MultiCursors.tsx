@@ -21,8 +21,7 @@ export const MultiCursors = ({ customLayout, ...props }: MultiCursorsProps) => {
         options={{ wsOptions: { debug: true } }}
       >
         <MultiCursorsWidget
-          channel="multi-cursor-storybook"
-          activated={true}
+          channelId="multi-cursor-storybook"
           customLayout={customLayout}
           setName={(user) => {
             return <>{user.userId}</>;

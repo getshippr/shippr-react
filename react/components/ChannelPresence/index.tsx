@@ -6,14 +6,6 @@ import { useShipprConfig } from "../ShipprProvider";
 
 export interface Props {
   /**
-   * Shippr API key
-   */
-  apiKey?: string;
-  /**
-   * Shippr application ID
-   */
-  appId?: string;
-  /**
    * Name of the channel that will be used
    */
   channelId: string;
