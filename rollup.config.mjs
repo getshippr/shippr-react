@@ -4,7 +4,6 @@ import typescript from "rollup-plugin-typescript2";
 import postCSS from "rollup-plugin-postcss";
 
 import pkg from "./package.json" assert { type: "json" };
-import { dts } from "rollup-plugin-dts";
 
 export default {
   input: ["react/index.ts"],
@@ -29,6 +28,5 @@ export default {
     postCSS({
       plugins: [require("autoprefixer")],
     }),
-    dts(),
   ],
 };

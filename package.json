@@ -32,8 +32,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.35.0",
     "storybook": "^7.1.1",
-    "typescript": "^5.1.6",
-    "rollup-plugin-dts": "^6.0.0"
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "react": "^18.2.0",
