@@ -1,95 +1,73 @@
 import { v4 } from "uuid";
-import { useCallback, useEffect, useRef, useState } from "react";
-import useWebSocket from "react-use-websocket";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   colorPalette,
   getCursorColor,
   getRandomIntegerInRange,
 } from "../../helper";
-import { push } from "../../../client/hosts";
 import "./style.css";
+import { useShipprConfig } from "../../ShipprProvider";
+import init, { ShipprClient, ShipprSub } from "@shippr/client";
+import SuperSocket from "@shippr/supersocket";
 
 export interface Props {
-  userId?: string;
-  channel?: string;
-  singlePropagation?: boolean;
+  channel: string;
   children?: any;
-  apiKey?: string;
-  appId?: string;
-  name?: string;
-  customLayout?: (user: any) => JSX.Element;
+  customLayout?: (user: { userId: string }) => JSX.Element;
+  setName?: (user: { userId: string }) => JSX.Element;
 }
 
 export default function SharedContainer({
   children,
   channel,
-  singlePropagation,
-  userId,
-  name,
-  apiKey,
-  appId,
   customLayout,
+  setName,
 }: Props) {
   const shouldWait = useRef<boolean>(false);
   const [connectedToCanvas, setConnectedToCanvas] = useState<any[]>([]);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const { appId, apiKey, options } = useShipprConfig();
+  const [socket, setSocket] = useState<SuperSocket | null>(null);
 
   useEffect(() => {
-    if (!userId) {
-      setCurrentUserId(v4());
-    } else {
-      setCurrentUserId(userId);
-    }
+    const fetch = async () => {
+      if (!options?.userId) {
+        setCurrentUserId(v4());
+      } else {
+        setCurrentUserId(options.userId);
+      }
+      const client = init(appId, apiKey, options);
+      const watcherInit = await client.subscribe(channel);
+      const socketInstance = watcherInit.getSocket();
+      watcherInit.on((data, err) => {
+        if (err) {
+          console.debug("error inside multicursor", err);
+        } else {
+          setConnectedToCanvas((prevValue) => {
+            if (!prevValue.find((m: any) => m.userId === data.userId)) {
+              return [...prevValue, data];
+            } else {
+              prevValue = prevValue.map((p: any) => {
+                if (p.userId === data.userId) {
+                  p.position = data.position;
+                }
+                return p;
+              });
+              return prevValue;
+            }
+          });
+        }
+      });
+      if (socketInstance) {
+        //@ts-ignore
+        setSocket(socketInstance);
+      }
+    };
+    fetch();
   }, []);
 
-  const { sendJsonMessage } = useWebSocket(
-    `wss:${push}?channelId=${channel}&singlePropagation=${
-      singlePropagation || ""
-    }&apiKey=${apiKey}&appId=${appId}&userId=${currentUserId}&name=${
-      name || ""
-    }`,
-    {
-      shouldReconnect: (closeEvent) => true,
-      share: true,
-      onOpen: () => {
-        const random = getRandomIntegerInRange(0, 50);
-        sendJsonMessage({
-          type: "position",
-          userId: currentUserId,
-          position: {
-            x: 100,
-            y: 100,
-            color: colorPalette[random],
-            oColor: colorPalette[random],
-          },
-        });
-      },
-      onMessage: (event) => {
-        const data = event?.data ? JSON.parse(event?.data) : null;
-        if (data) {
-          let update = JSON.parse(JSON.stringify(connectedToCanvas));
-          if (!update.find((m: any) => m.userId === data.userId)) {
-            update.push(data);
-          } else {
-            update = update.map((p: any) => {
-              if (p.userId === data.userId) {
-                p.position = data.position;
-              }
-              return p;
-            });
-          }
-
-          setConnectedToCanvas(update);
-        }
-      },
-      onClose: (event) => {
-        console.error(event.reason);
-      },
-    }
-  );
-
   const update = (x: any, y: any, color: any, oColor: any) => {
-    sendJsonMessage({
+    socket?.send({
       type: "multiposition",
       userId: currentUserId,
       position: { x, y, color, oColor },
@@ -99,10 +77,8 @@ export default function SharedContainer({
   const throttle = useCallback(
     (callback: Function, delay = 1000, ...args: any[]) => {
       if (shouldWait.current) return;
-
       callback(...args);
       shouldWait.current = true;
-
       setTimeout(() => {
         shouldWait.current = false;
       }, delay);
@@ -121,15 +97,18 @@ export default function SharedContainer({
       }}
       id={`shared-container-${currentUserId}`}
       onMouseMove={(event) => {
-        const originColor = connectedToCanvas.find(
-          (p: any) => p.userId === currentUserId
-        )?.position?.oColor;
+        const random = getRandomIntegerInRange(0, 50);
+
+        const originColor =
+          connectedToCanvas.find((p: any) => p.userId === currentUserId)
+            ?.position?.oColor || colorPalette[random];
         const container = document.getElementById(
           `shared-container-${currentUserId}`
         );
         const customCursor = document.getElementById(
           `my-custom-cursor-${currentUserId}`
         );
+
         if (container && customCursor) {
           // Get the mouse coordinates relative to the container
           const mouseX = event.clientX - container.getBoundingClientRect().left;
@@ -149,20 +128,23 @@ export default function SharedContainer({
           customCursor.style.left = `${mouseX}px`;
           customCursor.style.top = `${mouseY}px`;
           customCursor.style.cursor = `none !important`;
+          customCursor.style.visibility = `visible !important`;
+
           throttle(update, 50, mouseX, mouseY, color, originColor);
         }
       }}
     >
       <div
         className="my-custom-cursor z-50 "
-        style={{ cursor: "none !important" }}
+        style={{
+          cursor: "none !important",
+        }}
         id={`my-custom-cursor-${currentUserId}`}
       >
         {customLayout ? (
-          customLayout({ name, currentUserId })
+          customLayout({ userId: currentUserId || "" })
         ) : (
           <>
-            {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -172,7 +154,11 @@ export default function SharedContainer({
             >
               <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
             </svg>
-            <span className="text-xs">{name}</span>
+            {setName && (
+              <span className="text-xs">
+                {setName({ userId: currentUserId || "" })}
+              </span>
+            )}
           </>
         )}
       </div>
@@ -206,7 +192,11 @@ export default function SharedContainer({
                   >
                     <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
                   </svg>
-                  <span className="text-xs">{p.name}</span>
+                  {setName && (
+                    <span className="text-xs">
+                      {setName({ userId: p.userId || "" })}
+                    </span>
+                  )}
                 </>
               )}
             </div>

@@ -1,6 +1,7 @@
 import React, { ReactDOM } from "react";
 import "./style.css";
 import Message from "../../../react/components/Message";
+import ShipprProvider from "../../../react/components/ShipprProvider";
 
 interface MessageProps {
   /**
@@ -33,15 +34,15 @@ export const MessageWidget = ({
 }: MessageProps) => {
   return (
     <div>
-      <Message
-        apiKey="prod_Mi88YInp22c1lPN8tyvb"
-        appId="40CAF8OS"
-        channelId="storybook-message-example"
-        customLayout={customLayout}
-        template={template}
-        classSuffix={classSuffix}
-        initialData={initialData}
-      />
+      <ShipprProvider apiKey="prod_Mi88YInp22c1lPN8tyvb" appId="40CAF8OS">
+        <Message
+          channelId="storybook-message-example"
+          customLayout={customLayout}
+          template={template}
+          classSuffix={classSuffix}
+          initialData={initialData}
+        />
+      </ShipprProvider>
     </div>
   );
 };

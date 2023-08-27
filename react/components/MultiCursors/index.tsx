@@ -1,29 +1,27 @@
 import SharedContainer from "./SharedContainer";
 
 export interface Props {
-  userId?: string;
-  activated?: boolean;
-  channel?: string;
-  testMode?: boolean;
+  /**
+   * Name of the channel that will be used
+   */
+  channelId: string;
   children?: any;
-  apiKey?: string;
-  appId?: string;
-  name?: string;
-  customLayout?: (user: any) => JSX.Element;
+  /**
+   * if provided, this will overide the entire layout
+   */
+  customLayout?: (user: { userId: string }) => JSX.Element;
+  /*Method called to customize the name of the cursor
+   */
+  setName?: (user: { userId: string }) => JSX.Element;
 }
 
 export default function MultiCursors({
   children,
-  activated,
-  channel,
-  userId,
-  testMode,
-  apiKey,
-  name,
-  appId,
+  channelId,
   customLayout,
+  setName,
 }: Props) {
-  return activated ? (
+  return (
     <div
       style={{
         width: "100%",
@@ -33,27 +31,12 @@ export default function MultiCursors({
       }}
     >
       <SharedContainer
-        channel={channel}
-        name={name}
-        userId={userId}
-        apiKey={apiKey}
-        appId={appId}
-        singlePropagation={testMode}
+        channel={channelId}
         customLayout={customLayout}
+        setName={setName}
       >
         {children}
       </SharedContainer>
-    </div>
-  ) : (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        position: "relative",
-      }}
-    >
-      {children}
     </div>
   );
 }

@@ -1,47 +1,40 @@
-import useWebSocket from "react-use-websocket";
-import { useState } from "react";
-import { push } from "../../client/hosts";
 import Widget from "./Widget";
+import { useShipprConfig } from "../ShipprProvider";
+import { init } from "../../client";
 
 export interface Props {
-  apiKey: string;
-  appId: string;
+  /**
+   * Name of the channel that will be used
+   */
   channelId: string;
-  customLayout?: (data: any) => JSX.Element;
+  /**
+   * Only support "basic" tailwind notification
+   */
   template?: { type: string } & any;
+  /**
+   * Custom string appended for your own customization
+   */
   classSuffix?: string;
+  /**
+   * if basic if used, provide {title,body}
+   */
   initialData?: any;
+  /**
+   * if provided, this will overide the entire layout
+   */
+  customLayout?: (data: any) => JSX.Element;
 }
 
 export default function Message({
-  apiKey,
-  appId,
   channelId,
   customLayout,
   classSuffix,
   template,
   initialData,
 }: Props) {
-  const [data, setData] = useState<any>(initialData);
-
-  const wsUrl = `${
-    /localhost/.test(push) ? "ws" : "wss"
-  }://${push}?channelId=${channelId}&apiKey=${apiKey}&appId=${appId}`;
-  useWebSocket(wsUrl, {
-    share: true,
-    shouldReconnect: () => true,
-    onMessage: (event) => {
-      const data = event?.data ? JSON.parse(event?.data) : null;
-      if (data) {
-        setData(data);
-      }
-    },
-    onClose: (event) => {
-      console.error(event.reason);
-    },
-    onError: (event) => {},
-  });
-
+  const { appId, apiKey, options } = useShipprConfig();
+  const { useSharedState } = init(appId, apiKey, options);
+  const [data] = useSharedState(initialData, channelId);
   return (
     <Widget
       customLayout={customLayout}
