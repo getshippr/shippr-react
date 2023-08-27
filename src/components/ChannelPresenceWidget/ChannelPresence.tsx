@@ -80,7 +80,7 @@ export const ChannelPresence = ({
           showTooltip={showTooltip}
           tooltipPosition={tooltipPosition}
           customTooltip={customTooltip}
-          tooltipTrigger="click"
+          tooltipTrigger="hover"
         />
       </ShipprProvider>
     </div>

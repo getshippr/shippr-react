@@ -1,6 +1,6 @@
 {
   "name": "@shippr/react",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/react/index.d.ts",

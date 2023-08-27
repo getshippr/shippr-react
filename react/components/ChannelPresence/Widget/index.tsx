@@ -86,21 +86,38 @@ const Tooltip = ({
           setShow(!show);
         }
       }}
+      onMouseOver={() => {
+        if (showTooltip && tooltipTrigger === "hover") {
+          setShow(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (showTooltip && tooltipTrigger === "hover") {
+          setShow(false);
+        }
+      }}
     >
       {children}{" "}
-      {showTooltip && (
+      {showTooltip && show && (
         <div
           style={{ left: "50%", transform: "translateX(-50%)" }}
           className={cx(
-            "absolute whitespace-nowrap   text-white text-xs  transition-opacity duration-200",
+            "absolute z-50  whitespace-nowrap   text-white text-xs  transition-opacity duration-200",
             {
-              "opacity-0 group-hover:opacity-100": tooltipTrigger === "hover",
               "opacity-100": tooltipTrigger === "click" && show,
               "opacity-0": tooltipTrigger === "click" && !show,
-              "bottom-1/2 mb-6": tooltipPosition === "top",
-              "top-1/2 mt-6": tooltipPosition === "bottom",
-              "-ml-20 -top-1/2 mt-2": tooltipPosition === "left",
-              "ml-20 -top-1/2 mt-2": tooltipPosition === "right",
+              "bottom-1/2 mb-7": tooltipPosition === "top",
+              "top-1/2 mt-7": tooltipPosition === "bottom",
+
+              "-ml-28 -top-0 ":
+                tooltipPosition === "left" && position !== "vertical",
+              "-ml-28 -mt-2 -top-1/2 ":
+                tooltipPosition === "left" && position === "vertical",
+
+              "ml-28  -top-1 ":
+                tooltipPosition === "right" && position !== "vertical",
+              "ml-28 -mt-2 -top-1/2 ":
+                tooltipPosition === "right" && position === "vertical",
             }
           )}
         >
@@ -110,7 +127,7 @@ const Tooltip = ({
             ) : (
               <div className="w-full flex flex-wrap bg-gray-600 p-2 rounded ">
                 <div className="w-full flex flex-wrap ">
-                  <span className="w-full inline-block text-xs text-gray-300">
+                  <span className="z-50 w-40 truncate inline-block text-xs text-gray-300">
                     {user.userId}
                   </span>
                   <span className="w-full inline-block text-xs">
