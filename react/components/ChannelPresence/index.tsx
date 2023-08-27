@@ -55,6 +55,11 @@ export interface Props {
    */
   customTooltip?: (user: UserPresence) => JSX.Element;
   /**
+   * if you just need to replace the image URL
+   * returns image URL
+   */
+  replaceImg?: (user: UserPresence) => string;
+  /**
    * Build your own user layout
    * example:
    * customTooltip: (user) => {
@@ -102,6 +107,7 @@ export default function Presence({
   stackLimit,
   showTooltip,
   tooltipPosition,
+  replaceImg,
   customTooltip,
   tooltipTrigger,
 }: Props) {
@@ -138,6 +144,7 @@ export default function Presence({
       tooltipPosition={tooltipPosition}
       tooltipTrigger={tooltipTrigger}
       customUserLayout={customUserLayout}
+      replaceImg={replaceImg}
     />
   ) : (
     customLayout(

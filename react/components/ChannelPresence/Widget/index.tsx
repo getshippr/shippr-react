@@ -17,6 +17,7 @@ export interface Props {
   tooltipTrigger?: "click" | "hover";
   customTooltip?: (user: UserPresence) => JSX.Element;
   customUserLayout?: (user: UserPresence) => JSX.Element;
+  replaceImg?: (user: UserPresence) => string;
 }
 
 const variants = [
@@ -169,6 +170,7 @@ export default function BasicPresence({
   customTooltip,
   tooltipTrigger,
   customUserLayout,
+  replaceImg,
 }: Props) {
   const alignment = position === "vertical" ? "block" : "inline-flex flex-wrap";
   const stackedClass = position === "vertical" ? "my-0.5" : "mx-1";
@@ -242,7 +244,11 @@ export default function BasicPresence({
                       }
                     )}
                     style={{ borderWidth: "3px" }}
-                    src={`https://source.boringavatars.com/${variants[i]}`}
+                    src={
+                      replaceImg
+                        ? replaceImg(p)
+                        : `https://source.boringavatars.com/${variants[i]}`
+                    }
                   />
                 </>
               </Tooltip>
