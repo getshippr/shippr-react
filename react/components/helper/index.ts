@@ -103,7 +103,7 @@ const getCursorColor = (
     // Threshold for contrast ratio (you can adjust this based on your preference)
     const minContrastRatio = 9;
     // Change the custom cursor color based on contrast ratio
-    if (contrast && contrast < minContrastRatio) {
+    if (contrast && contrast > minContrastRatio) {
       return "rgb(255, 255, 255)";
     } else {
       return originColor;

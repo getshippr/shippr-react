@@ -1,6 +1,7 @@
 import "./style.css";
 import Presence from "../../../react/components/ChannelPresence";
 import { UserPresence } from "../../../react/components/helper";
+import ShipprProvider from "../../../react/components/ShipprProvider";
 
 interface ChannelPresenceProps {
   /**
@@ -63,21 +64,25 @@ export const ChannelPresence = ({
 }: ChannelPresenceProps) => {
   return (
     <div>
-      <Presence
+      <ShipprProvider
         apiKey="prod_Mi88YInp22c1lPN8tyvb"
         appId="40CAF8OS"
-        channelId="storybook-presence-indicator"
-        mode={mode}
-        position={position}
-        overideNumber={overideNumber}
-        customLayout={customLayout}
-        onClick={onClick}
-        stackLimit={stackLimit}
-        userId={"toto"}
-        showTooltip={showTooltip}
-        tooltipPosition={tooltipPosition}
-        customTooltip={customTooltip}
-      />
+        options={{ userId: "toto" }}
+      >
+        <Presence
+          channelId="storybook-presence-indicator"
+          mode={mode}
+          position={position}
+          overideNumber={overideNumber}
+          customLayout={customLayout}
+          onClick={onClick}
+          stackLimit={stackLimit}
+          showTooltip={showTooltip}
+          tooltipPosition={tooltipPosition}
+          customTooltip={customTooltip}
+          tooltipTrigger="click"
+        />
+      </ShipprProvider>
     </div>
   );
 };

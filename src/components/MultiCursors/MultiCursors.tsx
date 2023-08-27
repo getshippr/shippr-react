@@ -1,44 +1,43 @@
 import "./style.css";
 import MultiCursorsWidget from "../../../react/components/MultiCursors";
+import ShipprProvider from "../../../react/components/ShipprProvider";
 
 interface MultiCursorsProps {
   /**
-   * Name of your own cursor
-   */
-  name?: string;
-  /**
    * Custom rendering
    */
-  customLayout?: (users: any[]) => JSX.Element;
+  customLayout?: (user: { userId: string }) => JSX.Element;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const MultiCursors = ({
-  name = "titi",
-  customLayout,
-  ...props
-}: MultiCursorsProps) => {
+export const MultiCursors = ({ customLayout, ...props }: MultiCursorsProps) => {
   return (
     <div>
-      <MultiCursorsWidget
+      <ShipprProvider
         apiKey="prod_Mi88YInp22c1lPN8tyvb"
         appId="40CAF8OS"
-        name={name}
-        channel="multi-cursor-storybook"
-        activated={true}
-        customLayout={customLayout}
+        options={{ wsOptions: { debug: true } }}
       >
-        <div
-          style={{
-            width: "500px",
-            height: "500px",
-            background: "#dbdbdb",
-            borderRadius: "5px",
+        <MultiCursorsWidget
+          channel="multi-cursor-storybook"
+          activated={true}
+          customLayout={customLayout}
+          setName={(user) => {
+            return <>{user.userId}</>;
           }}
-        ></div>
-      </MultiCursorsWidget>
+        >
+          <div
+            style={{
+              width: "500px",
+              height: "500px",
+              background: "#dbdbdb",
+              borderRadius: "5px",
+            }}
+          ></div>
+        </MultiCursorsWidget>
+      </ShipprProvider>
     </div>
   );
 };

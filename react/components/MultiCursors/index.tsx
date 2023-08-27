@@ -1,27 +1,20 @@
 import SharedContainer from "./SharedContainer";
 
 export interface Props {
-  userId?: string;
   activated?: boolean;
-  channel?: string;
+  channel: string;
   testMode?: boolean;
   children?: any;
-  apiKey?: string;
-  appId?: string;
-  name?: string;
-  customLayout?: (user: any) => JSX.Element;
+  customLayout?: (user: { userId: string }) => JSX.Element;
+  setName?: (user: { userId: string }) => JSX.Element;
 }
 
 export default function MultiCursors({
   children,
   activated,
   channel,
-  userId,
-  testMode,
-  apiKey,
-  name,
-  appId,
   customLayout,
+  setName,
 }: Props) {
   return activated ? (
     <div
@@ -34,12 +27,8 @@ export default function MultiCursors({
     >
       <SharedContainer
         channel={channel}
-        name={name}
-        userId={userId}
-        apiKey={apiKey}
-        appId={appId}
-        singlePropagation={testMode}
         customLayout={customLayout}
+        setName={setName}
       >
         {children}
       </SharedContainer>

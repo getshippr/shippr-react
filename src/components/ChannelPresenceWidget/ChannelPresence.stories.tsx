@@ -73,7 +73,7 @@ export const SimpleTooltip: Story = {
   args: {
     mode: "stacked",
     showTooltip: true,
-    tooltipPosition: "left",
+    tooltipPosition: "top",
   },
 };
 

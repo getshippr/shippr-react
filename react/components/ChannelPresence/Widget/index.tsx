@@ -51,6 +51,8 @@ const Tooltip = ({
   tooltipPosition = "top",
   tooltipTrigger = "hover",
   customTooltip,
+  mode,
+  position,
 }: {
   user: UserPresence;
   children: JSX.Element;
@@ -58,75 +60,82 @@ const Tooltip = ({
   showTooltip?: boolean;
   tooltipPosition?: "top" | "left" | "right" | "bottom";
   customTooltip?: (user: UserPresence) => JSX.Element;
+  mode: string;
+  position?: string;
 }) => {
-  const position: any = {
+  const positionClass: any = {
     top: "#4b5563 transparent transparent transparent",
     bottom: "transparent transparent #4b5563 transparent",
     left: "transparent  transparent transparent #4b5563",
     right: "transparent  #4b5563 transparent transparent ",
   };
   const [show, setShow] = useState(false);
+  const stackedClass = position === "vertical" ? "my-0.5" : "mx-1";
 
-  return !showTooltip ? (
-    children
-  ) : (
-    <div
-      className={cx("relative cursor-pointer", {
-        "group hover-trigger": tooltipTrigger === "hover",
-      })}
+  return (
+    <span
+      className={cx(
+        `cursor-pointer h-12 w-12 ${mode === "stacked" ? stackedClass : ""}`,
+        {
+          "group hover-trigger": tooltipTrigger === "hover",
+          relative: showTooltip,
+        }
+      )}
       onClick={() => {
-        if (tooltipTrigger === "click") {
+        if (showTooltip && tooltipTrigger === "click") {
           setShow(!show);
         }
       }}
     >
       {children}{" "}
-      <div
-        style={{ left: "50%", transform: "translateX(-50%)" }}
-        className={cx(
-          "absolute whitespace-nowrap   text-white text-xs  transition-opacity duration-200",
-          {
-            "opacity-0 group-hover:opacity-100": tooltipTrigger === "hover",
-            "opacity-100": tooltipTrigger === "click" && show,
-            "opacity-0": tooltipTrigger === "click" && !show,
-            "bottom-1/2 mb-6": tooltipPosition === "top",
-            "top-1/2 mt-6": tooltipPosition === "bottom",
-            "-ml-20 -top-1/2 mt-2": tooltipPosition === "left",
-            "ml-20 -top-1/2 mt-2": tooltipPosition === "right",
-          }
-        )}
-      >
-        <div className="w-full flex flex-wrap">
-          {customTooltip ? (
-            customTooltip(user)
-          ) : (
-            <div className="w-full flex flex-wrap bg-gray-600 p-2 rounded ">
-              <div className="w-full flex flex-wrap ">
-                <span className="w-full inline-block text-xs text-gray-300">
-                  {user.userId}
-                </span>
-                <span className="w-full inline-block text-xs">
-                  Viewed {user.connectionCount} times
-                </span>
-              </div>
-              <div
-                style={{
-                  borderWidth: "3px",
-                  borderColor: position[tooltipPosition] || "",
-                  transform: "translateX(-50%)",
-                }}
-                className={cx("absolute z-50 w-0 h-0 ", {
-                  "-bottom-1.5 left-1/2": tooltipPosition === "top",
-                  "-top-1.5 left-1/2": tooltipPosition === "bottom",
-                  "-right-2 top-1/2": tooltipPosition === "left",
-                  "-left-0.5 top-1/2": tooltipPosition === "right",
-                })}
-              ></div>
-            </div>
+      {showTooltip && (
+        <div
+          style={{ left: "50%", transform: "translateX(-50%)" }}
+          className={cx(
+            "absolute whitespace-nowrap   text-white text-xs  transition-opacity duration-200",
+            {
+              "opacity-0 group-hover:opacity-100": tooltipTrigger === "hover",
+              "opacity-100": tooltipTrigger === "click" && show,
+              "opacity-0": tooltipTrigger === "click" && !show,
+              "bottom-1/2 mb-6": tooltipPosition === "top",
+              "top-1/2 mt-6": tooltipPosition === "bottom",
+              "-ml-20 -top-1/2 mt-2": tooltipPosition === "left",
+              "ml-20 -top-1/2 mt-2": tooltipPosition === "right",
+            }
           )}
+        >
+          <div className="w-full flex flex-wrap">
+            {customTooltip ? (
+              customTooltip(user)
+            ) : (
+              <div className="w-full flex flex-wrap bg-gray-600 p-2 rounded ">
+                <div className="w-full flex flex-wrap ">
+                  <span className="w-full inline-block text-xs text-gray-300">
+                    {user.userId}
+                  </span>
+                  <span className="w-full inline-block text-xs">
+                    Viewed {user.connectionCount} times
+                  </span>
+                </div>
+                <div
+                  style={{
+                    borderWidth: "3px",
+                    borderColor: positionClass[tooltipPosition] || "",
+                    transform: "translateX(-50%)",
+                  }}
+                  className={cx("absolute z-50 w-0 h-0 ", {
+                    "-bottom-1.5 left-1/2": tooltipPosition === "top",
+                    "-top-1.5 left-1/2": tooltipPosition === "bottom",
+                    "-right-2 top-1/2": tooltipPosition === "left",
+                    "-left-0.5 top-1/2": tooltipPosition === "right",
+                  })}
+                ></div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </span>
   );
 };
 
@@ -144,8 +153,9 @@ export default function BasicPresence({
   tooltipTrigger,
   customUserLayout,
 }: Props) {
-  const alignment = position === "vertical" ? "block" : "inline";
-  const stackedClass = position === "vertical" ? "-mt-3" : "-mr-3";
+  const alignment = position === "vertical" ? "block" : "inline-flex flex-wrap";
+  const stackedClass = position === "vertical" ? "my-0.5" : "mx-1";
+
   users =
     overideNumber && overideNumber > 0
       ? Array.from(Array(overideNumber).keys()).map((p, i) => {
@@ -174,6 +184,8 @@ export default function BasicPresence({
               showTooltip={showTooltip}
               customTooltip={customTooltip}
               tooltipPosition={tooltipPosition}
+              mode={mode}
+              position={position}
             >
               {customUserLayout(p)}
             </Tooltip>
@@ -195,6 +207,8 @@ export default function BasicPresence({
                 showTooltip={showTooltip}
                 customTooltip={customTooltip}
                 tooltipPosition={tooltipPosition}
+                mode={mode}
+                position={position}
               >
                 <>
                   {" "}
@@ -204,9 +218,7 @@ export default function BasicPresence({
                         classSuffix
                           ? `${classSuffix}-presence-element`
                           : "shippr-presence-element"
-                      } ${
-                        mode === "stacked" ? stackedClass : ""
-                      } w-12 cursor-pointer shadow-md inline    rounded-full`,
+                      }  w-12 cursor-pointer shadow-md inline rounded-full`,
                       {
                         "border-green-500": p.state === "connected",
                         "border-gray-300": p.state === "disconnected",
@@ -236,10 +248,11 @@ export default function BasicPresence({
                   : "shippr-presence-element"
               } ${
                 mode === "stacked" ? stackedClass : ""
-              } cursor-pointer shadow-md inline-flex items-center justify-center  w-12  h-12  border-2 -mr-3 bg-blue-400 text-blue-100  border-blue-500 rounded-full`
+              } cursor-pointer text-xs shadow-md inline-flex items-center justify-center  w-12  h-12 bg-blue-400 text-blue-100  border-blue-500 rounded-full`
             )}
+            style={{ borderWidth: "3px" }}
           >
-            <span className="text-xs">+{users.length - (stackLimit || 4)}</span>
+            +{users.length - (stackLimit || 4)}
           </div>
         </div>
       )}

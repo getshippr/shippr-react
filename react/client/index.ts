@@ -43,8 +43,10 @@ const init = (
     usePresence: (
       initValue: UserPresence[],
       channelId: string
-    ): [UserPresence[], Function] => {
+    ): [UserPresence[], Function, UserPresence[], UserPresence[]] => {
       const [users, setUsers] = useState<UserPresence[]>(initValue || []);
+      const [addedUsers, setAddedUsers] = useState<UserPresence[]>([]);
+      const [removedUsers, setRemovedUsers] = useState<UserPresence[]>([]);
 
       useEffect(() => {
         let watcher: {
@@ -57,7 +59,32 @@ const init = (
           watcher.on((newData: any, err: any) => {
             if (!err) {
               const update: UserPresence[] = newData ? newData.users || [] : [];
-              setUsers(update);
+              setUsers((prevValue) => {
+                const added = update
+                  .filter((p) => p.state === "connected")
+                  .filter(
+                    (m) =>
+                      !prevValue
+                        .filter((s) => s.state === "connected")
+                        .find((l) => l.userId === m.userId)
+                  );
+
+                const removed = update.filter((k) =>
+                  prevValue
+                    .filter(
+                      (m) =>
+                        update.find(
+                          (l) =>
+                            l.userId === m.userId && l.state === "disconnected"
+                        ) && m.state === "connected"
+                    )
+                    .map((p) => p.userId)
+                    .includes(k.userId)
+                );
+                setAddedUsers(added);
+                setRemovedUsers(removed);
+                return update;
+              });
             } else {
               console.log(err);
             }
@@ -73,7 +100,7 @@ const init = (
         client.publish(channelId, newData);
       };
 
-      return [users || [], update];
+      return [users || [], update, addedUsers, removedUsers];
     },
   };
 };

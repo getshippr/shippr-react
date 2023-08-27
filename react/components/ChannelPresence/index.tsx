@@ -2,25 +2,21 @@ import { useEffect, useState } from "react";
 import { init } from "../../client";
 import Widget from "./Widget";
 import { UserPresence } from "../helper";
+import { useShipprConfig } from "../ShipprProvider";
 
 export interface Props {
   /**
    * Shippr API key
    */
-  apiKey: string;
+  apiKey?: string;
   /**
    * Shippr application ID
    */
-  appId: string;
+  appId?: string;
   /**
    * Name of the channel that will be used
    */
   channelId: string;
-  /**
-   * Identifier, will be generated if not provided
-   * ex: email or a user ID
-   */
-  userId?: any;
   /**
    * custom class appended to the component
    */
@@ -100,10 +96,7 @@ export interface Props {
 }
 
 export default function Presence({
-  apiKey,
-  appId,
   channelId,
-  userId,
   classSuffix,
   mode,
   position,
@@ -120,45 +113,25 @@ export default function Presence({
   customTooltip,
   tooltipTrigger,
 }: Props) {
-  const { usePresence } = init(appId, apiKey, {
-    userId,
-    wsOptions: { secureOnly: false },
-  });
+  const { appId, apiKey, options } = useShipprConfig();
+  const { usePresence } = init(appId, apiKey, options);
 
-  const [users, setUsers] = useState<UserPresence[]>([]);
-  const [usersInChannel] = usePresence([], `presence:${channelId}`);
+  const [users, setUsers, addedUsers, removedUsers] = usePresence(
+    [],
+    `presence:${channelId}`
+  );
 
   useEffect(() => {
-    const added = usersInChannel
-      .filter((p) => p.state === "connected")
-      .filter(
-        (m) =>
-          !users
-            .filter((s) => s.state === "connected")
-            .find((l) => l.userId === m.userId)
-      );
-
-    const removed = usersInChannel.filter((k) =>
-      users
-        .filter(
-          (m) =>
-            usersInChannel.find(
-              (l) => l.userId === m.userId && l.state === "disconnected"
-            ) && m.state === "connected"
-        )
-        .map((p) => p.userId)
-        .includes(k.userId)
-    );
-
-    setUsers(usersInChannel);
-
-    if (onDisconnect && removed.length > 0) {
-      onDisconnect(removed);
+    if (addedUsers.length && onConnect) {
+      onConnect(addedUsers);
     }
-    if (onConnect && added.length > 0) {
-      onConnect(added);
+  }, [addedUsers]);
+
+  useEffect(() => {
+    if (removedUsers.length && onDisconnect) {
+      onDisconnect(removedUsers);
     }
-  }, [usersInChannel]);
+  }, [removedUsers]);
 
   return !customLayout ? (
     <Widget
