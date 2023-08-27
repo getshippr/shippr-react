@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import shippr from "@shippr/client";
+import shippr, { ShipprClient } from "@shippr/client";
 import { SuperSocketOptions } from "@shippr/supersocket/lib/esm/types/supersocket";
 import { UserPresence } from "../components/helper";
 
@@ -7,7 +7,7 @@ const init = (
   appId: string,
   apiKey: string,
   options?: { wsOptions?: SuperSocketOptions; userId?: string }
-) => {
+): ShipprHooks => {
   const client = shippr(appId, apiKey, options);
   return {
     useSharedState: (initValue: any, channelId: string) => {

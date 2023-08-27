@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { init } from "../../client";
 import Widget from "./Widget";
 import { UserPresence } from "../helper";
-import { useShipprConfig } from "../ShipprProvider";
+import { usePresence, useShipprConfig } from "../ShipprProvider";
 
 export interface Props {
   /**
@@ -105,9 +105,6 @@ export default function Presence({
   customTooltip,
   tooltipTrigger,
 }: Props) {
-  const { appId, apiKey, options } = useShipprConfig();
-  const { usePresence } = init(appId, apiKey, options);
-
   const [users, setUsers, addedUsers, removedUsers] = usePresence(
     [],
     `presence:${channelId}`

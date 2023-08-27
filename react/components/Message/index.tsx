@@ -1,6 +1,5 @@
+import { useSharedState } from "../ShipprProvider";
 import Widget from "./Widget";
-import { useShipprConfig } from "../ShipprProvider";
-import { init } from "../../client";
 
 export interface Props {
   /**
@@ -32,8 +31,6 @@ export default function Message({
   template,
   initialData,
 }: Props) {
-  const { appId, apiKey, options } = useShipprConfig();
-  const { useSharedState } = init(appId, apiKey, options);
   const [data] = useSharedState(initialData, channelId);
   return (
     <Widget
