@@ -2456,14 +2456,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shippr/client@npm:^0.3.8":
-  version: 0.3.8
-  resolution: "@shippr/client@npm:0.3.8"
+"@shippr/client@npm:^0.3.9":
+  version: 0.3.9
+  resolution: "@shippr/client@npm:0.3.9"
   dependencies:
     "@babel/core": ^7.22.11
     "@shippr/supersocket": ^1.0.5
-    rollup-plugin-dts: ^6.0.0
-  checksum: 734b2e0272efc6fe3ac2bf95fd1ca61b3c300087ca1826eb3d890c42d922363b52133ca03adadc58f657fb3fc44f9694b0cd20444ea7ff78d5068fc6fc8ec7b3
+  checksum: be0bd84dafb4ef6bca2cf981be4f2886e730f58327a98219cbf5b6abe4e6944686ca34bd80f992c0ce73568c30f2524f3e9013018513d069c3ea564d28f7c841
   languageName: node
   linkType: hard
 
@@ -2476,7 +2475,7 @@ __metadata:
     "@babel/preset-typescript": ^7.22.5
     "@rollup/plugin-commonjs": ^25.0.3
     "@rollup/plugin-node-resolve": ^15.1.0
-    "@shippr/client": ^0.3.8
+    "@shippr/client": ^0.3.9
     "@shippr/supersocket": ^1.0.4
     "@storybook/addon-essentials": ^7.1.1
     "@storybook/addon-interactions": ^7.1.1
@@ -9394,15 +9393,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.30.2":
-  version: 0.30.3
-  resolution: "magic-string@npm:0.30.3"
-  dependencies:
-    "@jridgewell/sourcemap-codec": ^1.4.15
-  checksum: a5a9ddf9bd3bf49a2de1048bf358464f1bda7b3cc1311550f4a0ba8f81a4070e25445d53a5ee28850161336f1bff3cf28aa3320c6b4aeff45ce3e689f300b2f3
-  languageName: node
-  linkType: hard
-
 "make-dir@npm:^2.0.0, make-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "make-dir@npm:2.1.0"
@@ -11762,22 +11752,6 @@ __metadata:
   bin:
     rimraf: ./bin.js
   checksum: 3ea587b981a19016297edb96d1ffe48af7e6af69660e3b371dbfc73722a73a0b0e9be5c88089fbeeb866c389c1098e07f64929c7414290504b855f54f901ab10
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-dts@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "rollup-plugin-dts@npm:6.0.0"
-  dependencies:
-    "@babel/code-frame": ^7.22.10
-    magic-string: ^0.30.2
-  peerDependencies:
-    rollup: ^3.25.0
-    typescript: ^4.5 || ^5.0
-  dependenciesMeta:
-    "@babel/code-frame":
-      optional: true
-  checksum: cebe987d4711e85f113a2f4b095d743573420b9528b0eb158edd399a3111bc593637b41bf69d8dd94ce6f670ac6b238d1b1a8f23f495dbbd54728e3fb14a820e
   languageName: node
   linkType: hard
 

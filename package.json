@@ -1,6 +1,6 @@
 {
   "name": "@shippr/react",
-  "version": "0.1.47",
+  "version": "0.1.48",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/react/index.d.ts",
@@ -47,7 +47,7 @@
     "chromatic": "npx chromatic --project-token=chpt_fd5a6152943ec27"
   },
   "dependencies": {
-    "@shippr/client": "^0.3.8",
+    "@shippr/client": "^0.3.9",
     "@shippr/supersocket": "^1.0.4",
     "@types/uuid": "^9.0.2",
     "autoprefixer": "^10.4.14",
