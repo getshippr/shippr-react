@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import shippr, { ShipprClient } from "@shippr/client";
+import shippr, { ShipprClient, ShipprSub } from "@shippr/client";
 import { SuperSocketOptions } from "@shippr/supersocket/lib/esm/types/supersocket";
 import { UserPresence } from "../components/helper";
 import { ShipprHooks } from "../types";
@@ -13,33 +13,30 @@ const init = (
   return {
     useSharedState: (initValue: any, channelId: string) => {
       const [data, setData] = useState(initValue);
+      const [watcher, setWatcher] = useState<ShipprSub | null>(null);
       useEffect(() => {
-        let watcher: {
-          on: (cb: any) => void;
-          getSocket: () => any;
-          disconnect: () => void;
-        } | null = null;
         const fetch = async () => {
-          watcher = await client.subscribe(channelId);
-          watcher.on((data: any, err: any) => {
+          const watch = await client.subscribe(channelId);
+          watch.on((data: any, err: any) => {
             if (!err) {
               setData(data);
             } else {
               console.log(err);
             }
           });
+          setWatcher(watch);
         };
         fetch();
         return () => {
           watcher?.disconnect();
         };
       }, []);
-
-      const update = (newData: any) => {
-        client.publish(channelId, newData);
-      };
-
-      return [data, update];
+      return [
+        data,
+        (update) => {
+          watcher?.broadcast(update);
+        },
+      ];
     },
     usePresence: (
       initValue: UserPresence[],

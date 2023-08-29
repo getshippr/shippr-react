@@ -2456,13 +2456,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shippr/client@npm:^0.3.9":
-  version: 0.3.9
-  resolution: "@shippr/client@npm:0.3.9"
+"@shippr/client@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "@shippr/client@npm:0.4.4"
   dependencies:
     "@babel/core": ^7.22.11
-    "@shippr/supersocket": ^1.0.5
-  checksum: be0bd84dafb4ef6bca2cf981be4f2886e730f58327a98219cbf5b6abe4e6944686ca34bd80f992c0ce73568c30f2524f3e9013018513d069c3ea564d28f7c841
+    "@shippr/supersocket": ^1.0.6
+  checksum: 7c4b7feaec021f335337bcd7686be08ca0f8ff91093b3c54ebdb43ce4c1d5592eed8278f22f23cce98e2a09a98c4cfe0730ae2fdc8162c0de43fdc022aefed1b
   languageName: node
   linkType: hard
 
@@ -2475,8 +2475,8 @@ __metadata:
     "@babel/preset-typescript": ^7.22.5
     "@rollup/plugin-commonjs": ^25.0.3
     "@rollup/plugin-node-resolve": ^15.1.0
-    "@shippr/client": ^0.3.9
-    "@shippr/supersocket": ^1.0.4
+    "@shippr/client": ^0.4.4
+    "@shippr/supersocket": ^1.0.6
     "@storybook/addon-essentials": ^7.1.1
     "@storybook/addon-interactions": ^7.1.1
     "@storybook/addon-links": ^7.1.1
@@ -2511,26 +2511,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shippr/supersocket@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@shippr/supersocket@npm:1.0.4"
-  dependencies:
-    "@jest/globals": ^29.6.2
-    "@types/crypto-js": ^4.1.1
-    "@types/jest": ^29.5.3
-    crypto-js: ^4.1.1
-    jest: ^29.6.2
-    jest-fetch-mock: ^3.0.3
-    mock-socket: ^9.2.1
-    ts-jest: ^29.1.1
-    ws: ^8.13.0
-  checksum: a13fb7a6dd752658efb99d44183459ef8694c0a4b4863acb64514b1bd01584f130da72dee2a7a777cea3362455cc856a5aec45ca0eb272912d9e8c0ef4327f3f
-  languageName: node
-  linkType: hard
-
-"@shippr/supersocket@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@shippr/supersocket@npm:1.0.5"
+"@shippr/supersocket@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@shippr/supersocket@npm:1.0.6"
   dependencies:
     "@jest/globals": ^29.6.2
     "@types/crypto-js": ^4.1.1
@@ -2542,7 +2525,7 @@ __metadata:
     mock-socket: ^9.2.1
     ts-jest: ^29.1.1
     ws: ^8.13.0
-  checksum: c9dcf26baf951f4b6c4b2e3b9d383945e47a23274e165a76b1383bdaf0efb01dcae568c122b969073b173236821f708d258620b54fae4c9933d741fc70370160
+  checksum: 29c410bc52e3a559130bfb599548727c0c9e3b79b1a3eac24b8aebe03fb151d7521d2d6a087c8ca2fab83e26ae7d5557545b7937e6456389a9d51e57510a2678
   languageName: node
   linkType: hard
 
