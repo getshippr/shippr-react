@@ -68,9 +68,12 @@ export default function SharedContainer({
 
   const update = (x: any, y: any, color: any, oColor: any) => {
     socket?.send({
-      type: "multiposition",
-      userId: currentUserId,
-      position: { x, y, color, oColor },
+      emit: "broadcast",
+      data: {
+        type: "multiposition",
+        userId: currentUserId,
+        position: { x, y, color, oColor },
+      },
     });
   };
 
