@@ -56,18 +56,6 @@ export const CustomLayout: Story = {
     },
   },
 };
-
-export const onClickEvent: Story = {
-  name: "OnClick Event",
-  args: {
-    mode: "stacked",
-    overideNumber: 5,
-    onClick: (userId: any) => {
-      console.log("I am here");
-    },
-  },
-};
-
 export const SimpleTooltip: Story = {
   name: "With Simple Tooltip",
   args: {
